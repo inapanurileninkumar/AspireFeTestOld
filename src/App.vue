@@ -1,32 +1,67 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div
+      class="flex-box"
+      style="width:100vw"
+    >
+      <div
+        class="col-xl-2_4 col-lg-2_4 sidebar-container"
+      >
+        <div
+          class="max-allowed-container-screen bg-primary-dark text-white"
+        >
+          <div
+            class="p-50"
+          >
+            <home-sidebar />
+          </div>
+        </div>
+      </div>
+      <div
+        class="max-allowed-container-screen col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12
+         overflow-y-auto invisibleScrollbar"
+      >
+        <router-view/>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import HomeSidebar from '@components/HomeSidebar';
+import { sampleDataGenerator } from '@mixins/sampleDataGenerator';
+import { mapActions } from 'vuex';
+export default {
+  name: 'App',
+  components: {
+    HomeSidebar
+  },
+  mixins: [sampleDataGenerator],
+  beforeMount: function () {
+    this.setupSampleData();
+  },
+  methods: {
+    ...mapActions({
+      addCard: 'cards/addCard',
+      setActiveCard: 'cards/setActiveCard',
+      addTransaction: 'transactions/addTransaction'
+    }),
+    setupSampleData: function () {
+      let cards = [...Array(this.getRandomNumber(10, 1)).keys()].map(ind => this.getSampleCard());
+      cards.forEach(card => this.addCard(card));
+      this.setActiveCard(cards[this.getRandomNumber(cards.length - 1)]);
+      let cardsLen = cards.length - 1;
+      [...Array(this.getRandomNumber(1, cardsLen * 20)).keys()]
+        .forEach(ind =>
+          this.addTransaction(this.getRandomTransaction(cards[this.getRandomNumber(cardsLen)]['uuid']))
+        );
     }
+  }
+};
+</script>
+<style lang="scss">
+@media screen and (max-width:1080px){
+  .sidebar-container{
+    display:none;
   }
 }
 </style>

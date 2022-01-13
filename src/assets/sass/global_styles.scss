@@ -1,0 +1,155 @@
+@font-face{
+    font-family:'roboto-regular';
+    src:url('../fonts/Roboto-Regular.ttf');
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family:'roboto-regular' ;
+}
+$spacingValues : auto, 0, 3, 4, 5, 6, 7, 8, 9, 10, 13, 15, 20, 30, 40, 50, 60;
+$radiusValues: 0, 1, 2, 3, 4, 5, 10, 15;
+$fontSizes: (
+    "x-small" : 4,      //xtra small
+    "small" : 7.5,      //small
+    "small-med" : 9,    //small-medium
+    "medium" : 10,      //medium
+    "medium-reg" : 11.5,//medium-regular
+    "regular" : 13,     //regular
+    "reg-large" : 16, //regular-large
+    "large" : 20,       //large
+    "huge" : 22,      //huge
+);
+
+@each $spacingVal in $spacingValues{
+    .p-#{$spacingVal}{
+        padding: #{$spacingVal}px;
+    }
+    .pt-#{$spacingVal}{
+        padding-top: #{$spacingVal}px;
+    }
+    .pr-#{$spacingVal}{
+        padding-right: #{$spacingVal}px;
+    }
+    .pb-#{$spacingVal}{
+        padding-bottom: #{$spacingVal}px;
+    }
+    .pl-#{$spacingVal}{
+        padding-left: #{$spacingVal}px;
+    }
+    .pv-#{$spacingVal}{
+        padding-top: #{$spacingVal}px;
+        padding-bottom: #{$spacingVal}px;
+    }
+    .ph-#{$spacingVal}{
+        padding-left: #{$spacingVal}px;
+        padding-right: #{$spacingVal}px;
+    }
+    .m-#{$spacingVal}{
+        margin: #{$spacingVal}px;
+    }
+    .mt-#{$spacingVal}{
+        margin-top: #{$spacingVal}px;
+    }
+    .mt--#{$spacingVal}{
+        margin-top: #{$spacingVal}px;
+    }
+    .pr-#{$spacingVal}{
+        margin-right: #{$spacingVal}px;
+    }
+    .mb-#{$spacingVal}{
+        margin-bottom: #{$spacingVal}px;
+    }
+    .ml-#{$spacingVal}{
+        margin-left: #{$spacingVal}px;
+    }
+    .mv-#{$spacingVal}{
+        margin-top: #{$spacingVal}px;
+        margin-bottom: #{$spacingVal}px;
+    }
+    .mh-#{$spacingVal}{
+        margin-left: #{$spacingVal}px;
+        margin-right: #{$spacingVal}px;
+    }
+}
+
+/**
+    m ( medium ) is the global font size
+    when changing the medium font size value, change the font size of body tag in main.scss
+*/
+@each $fontSizeName,$fontSizeVal in $fontSizes{
+    .font-#{$fontSizeName}{
+        font-size: #{$fontSizeVal}pt;
+    }
+}
+@each $radiusSize in $radiusValues{
+    .radius-#{$radiusSize}{
+        border-radius:#{$radiusSize}px;
+    }
+}
+
+.text-align-center{
+    text-align:center;
+}
+.text-uppercase{
+    text-transform: uppercase;
+}
+.pointer-cursor{
+    cursor:pointer;
+}
+
+.no-click{
+    pointer-events: none;
+    cursor:not-allowed;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.hover-text-bold{
+    &:hover{
+        font-weight: bold;
+    }
+}
+
+.width-100{
+    width:100%;
+}
+
+.hover-shadow{
+    &:hover{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+.transition-0-25{
+    transition: all 0.25s ease-in-out;
+}
+
+$containers : (
+    'screen':5px
+);
+
+@each $containerName,$containerHeight in $containers{
+    .max-allowed-container-#{$containerName}{
+        max-height: calc(100vh - #{$containerHeight});
+        min-height: calc(100vh - #{$containerHeight});
+    }
+}
+
+.overflow-y-auto{
+    overflow-y: auto;
+}
+
+.free-letter-spacing{
+    letter-spacing: 0.5px;
+}
+.extra-letter-spacing{
+    letter-spacing: 1.5px;
+}
+.ellipsis-word{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
